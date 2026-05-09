@@ -1,94 +1,89 @@
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { feature, brief, stage, primaryPersona, secondaryPersona, goal, outputs, constraints } = req.body;
-
-  if (!feature || !brief || !primaryPersona) {
-    return res.status(400).json({ error: 'Missing required fields: feature, brief, and primaryPersona are required.' });
+  const apiKey = process.env.ANTHROPIC_API_KEY || process.env.ANTHROPICAPIKEY;
+  if (!apiKey) {
+    return res.status(500).json({ error: 'Missing Anthropic API key in environment variables.' });
   }
 
-  const outputList = Array.isArray(outputs) ? outputs : [
-    'Messaging Foundation',
-    'Persona Talk Tracks',
-    'Sales Enablement Snippets',
-    'FAQ / Objection Handling',
-    'Launch-Readiness Gaps'
-  ];
+  const { featureName, brief, launchStage, persona, notes } = req.body || {};
+  if (!featureName || !brief || !launchStage || !persona) {
+    return res.status(400).json({ error: 'Feature name, brief, launch stage, and persona are required.' });
+  }
 
-  const systemPrompt = `You are an expert Product Marketing Manager with deep experience in nonprofit SaaS. 
-You create structured, audience-specific messaging packs from product briefs.
+  const prompt = `You are creating a PMM launch pack for a nonprofit software company.
 
-RULES:
-- Only make claims directly supported by the provided feature brief
-- Clearly label what is confirmed vs. what is recommended interpretation  
-- Flag any missing information the PMM needs to resolve
-- Write for practitioners — clear, direct, no filler
-- Format output in clean sections with headers`;
+Return valid JSON only with these exact keys:
+- messaging_foundation
+- persona_talk_tracks
+- sales_enablement_snippets
+- faq_objection_handling
+- launch_readiness_gaps
 
-  const userPrompt = `Create a launch messaging pack for the following feature.
+Each value should be a polished markdown-friendly string with bullets and short subheads where helpful.
 
-Feature: ${feature}
-Launch stage: ${stage || 'General availability'}
-Primary audience: ${primaryPersona}${secondaryPersona ? '\nSecondary audience: ' + secondaryPersona : ''}
-Primary goal: ${goal || 'Create clear messaging for internal teams'}
-${constraints ? 'Constraints: ' + constraints : ''}
+Context:
+Feature name: ${featureName}
+Feature brief: ${brief}
+Launch stage: ${launchStage}
+Persona: ${persona}
+Constraints or notes: ${notes || 'None provided'}
 
-Requested outputs:
-${outputList.map(o => '- ' + o).join('\n')}
+Requirements:
+1. Messaging Foundation: positioning statement, value proposition, 3 messaging pillars, differentiators, and proof points to validate.
+2. Persona Talk Tracks: narrative tailored to the stated persona, pain points, discovery questions, and likely resonant outcomes.
+3. Sales Enablement Snippets: concise one-pager style copy including elevator pitch, why it matters now, and 3 reusable snippets for sales/customer-facing teams.
+4. FAQ / Objection Handling: top likely objections or questions with clear PMM-style responses. Include where proof is still needed.
+5. Launch-Readiness Gaps: what appears confirmed, what is missing, open questions, dependencies, enablement gaps, and recommended next actions.
 
----FEATURE BRIEF---
-${brief}
----END BRIEF---
-
-Please structure your response with these exact section headers (only include sections that were requested):
-
-## Messaging Foundation
-[One-line positioning statement, value proposition (2-3 sentences), and 3 message pillars as bullet points. List key differentiators.]
-
-## Persona Talk Tracks
-[For each persona: opening narrative (2-3 sentences), top 3 benefits for this audience, and 3-5 discovery questions a sales rep could use.]
-
-## Sales Enablement Snippets
-[What this feature is (1 sentence), when to position it (3 situations), what NOT to promise (2-3 items), and a brief competitive context note if supported by the brief.]
-
-## FAQ / Objection Handling
-[5 likely objections or questions with clear, brief responses. Include at least one AI trust/data privacy concern.]
-
-## Launch-Readiness Gaps
-[Use three categories: CONFIRMED (what is clearly supported), OPEN (what needs clarification before launch), and FLAG (what must not be claimed). Be specific and actionable.]`;
+Style:
+- Practical, crisp, PMM-ready
+- No hype
+- Use concrete language
+- Call out uncertainty where evidence is missing
+- Keep each section useful enough to paste into a real launch workflow`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5',
-        max_tokens: 2500,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userPrompt }]
+        model: 'claude-3-5-sonnet-latest',
+        max_tokens: 2200,
+        temperature: 0.4,
+        messages: [{ role: 'user', content: prompt }]
       })
     });
 
+    const data = await response.json();
     if (!response.ok) {
-      const err = await response.json();
-      console.error('Anthropic API error:', err);
-      return res.status(500).json({ error: 'Failed to generate messaging pack. Please try again.' });
+      return res.status(response.status).json({ error: data?.error?.message || 'Anthropic API request failed.' });
     }
 
-    const data = await response.json();
-    const text = data.content[0].text;
+    const text = data?.content?.map(c => c.text || '').join('') || '{}';
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      const match = text.match(/\{[\s\S]*\}/);
+      if (!match) return res.status(500).json({ error: 'Model response was not valid JSON.' });
+      parsed = JSON.parse(match[0]);
+    }
 
-    return res.status(200).json({ result: text });
-
+    return res.status(200).json({
+      messaging_foundation: parsed.messaging_foundation || '',
+      persona_talk_tracks: parsed.persona_talk_tracks || '',
+      sales_enablement_snippets: parsed.sales_enablement_snippets || '',
+      faq_objection_handling: parsed.faq_objection_handling || '',
+      launch_readiness_gaps: parsed.launch_readiness_gaps || ''
+    });
   } catch (error) {
-    console.error('Server error:', error);
-    return res.status(500).json({ error: 'Server error. Please try again.' });
+    return res.status(500).json({ error: error.message || 'Unexpected server error.' });
   }
 }

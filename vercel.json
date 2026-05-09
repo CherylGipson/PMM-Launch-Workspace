@@ -1,7 +1,13 @@
 {
+  "version": 2,
   "functions": {
     "api/generate.js": {
-      "maxDuration": 30
+      "runtime": "@vercel/node@3.2.16"
     }
-  }
+  },
+  "routes": [
+    { "src": "/api/generate", "dest": "/api/generate.js" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }

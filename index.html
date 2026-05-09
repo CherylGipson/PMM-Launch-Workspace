@@ -1,946 +1,534 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Launch Message Pack — Flourish PMM Workspace</title>
-<meta name="description" content="A structured AI workflow that turns a product brief into a complete, audience-ready messaging pack in one run.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300..700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
-<style>
-/* ── Art direction: PMM productivity tool for nonprofit SaaS
-   Palette: warm neutral surfaces, teal primary (Bloomerang brand-aligned)
-   Typography: Instrument Serif display + Work Sans body — editorial authority meets clarity
-   Density: balanced — form-first, generous on outputs ── */
-
-:root, [data-theme="light"] {
-  --color-bg: #f5f4f0;
-  --color-surface: #f9f8f5;
-  --color-surface-2: #fdfcfa;
-  --color-surface-offset: #eeecea;
-  --color-surface-dynamic: #e4e2de;
-  --color-divider: #d8d5d0;
-  --color-border: #ccc9c3;
-  --color-text: #1e1c17;
-  --color-text-muted: #6b6a65;
-  --color-text-faint: #aeada8;
-  --color-text-inverse: #f9f8f4;
-  --color-primary: #007a80;
-  --color-primary-hover: #005f65;
-  --color-primary-active: #004548;
-  --color-primary-highlight: #cde0e1;
-  --color-success: #3d7020;
-  --color-success-highlight: #cfddc8;
-  --color-warning: #8a3d16;
-  --color-warning-highlight: #daccbf;
-  --color-error: #991f6d;
-  --color-error-highlight: #ddc9d4;
-  --shadow-sm: 0 1px 3px oklch(0.2 0.01 80 / 0.07), 0 1px 2px oklch(0.2 0.01 80 / 0.04);
-  --shadow-md: 0 4px 16px oklch(0.2 0.01 80 / 0.08), 0 1px 4px oklch(0.2 0.01 80 / 0.04);
-  --shadow-lg: 0 16px 40px oklch(0.2 0.01 80 / 0.10), 0 4px 12px oklch(0.2 0.01 80 / 0.05);
-  --radius-sm: 0.3rem; --radius-md: 0.5rem; --radius-lg: 0.75rem;
-  --radius-xl: 1.125rem; --radius-2xl: 1.5rem; --radius-full: 9999px;
-  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
-  --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem;
-  --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
-  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
-  --text-xl: clamp(1.375rem, 1.1rem + 1.1vw, 2rem);
-  --text-2xl: clamp(1.75rem, 1rem + 2.5vw, 3rem);
-  --font-display: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Work Sans', system-ui, sans-serif;
-  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-  --content-narrow: 600px;
-  --content-default: 880px;
-}
-
-[data-theme="dark"] {
-  --color-bg: #141310; --color-surface: #1a1916; --color-surface-2: #1e1d1a;
-  --color-surface-offset: #1b1a17; --color-surface-dynamic: #292825;
-  --color-divider: #232220; --color-border: #343230;
-  --color-text: #cccac7; --color-text-muted: #747270; --color-text-faint: #524f4c;
-  --color-text-inverse: #28261f; --color-primary: #4a9ba6; --color-primary-hover: #237a86;
-  --color-primary-active: #185f69; --color-primary-highlight: #2b3b3c;
-  --color-success: #67a43f; --color-success-highlight: #36412f;
-  --color-warning: #b56035; --color-warning-highlight: #503d30;
-  --color-error: #c95d9f; --color-error-highlight: #463040;
-  --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.22); --shadow-md: 0 4px 16px oklch(0 0 0 / 0.32);
-  --shadow-lg: 0 16px 40px oklch(0 0 0 / 0.4);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-bg: #141310; --color-surface: #1a1916; --color-surface-2: #1e1d1a;
-    --color-surface-offset: #1b1a17; --color-surface-dynamic: #292825;
-    --color-divider: #232220; --color-border: #343230;
-    --color-text: #cccac7; --color-text-muted: #747270; --color-text-faint: #524f4c;
-    --color-text-inverse: #28261f; --color-primary: #4a9ba6; --color-primary-hover: #237a86;
-    --color-primary-highlight: #2b3b3c; --color-success: #67a43f;
-    --color-success-highlight: #36412f; --color-warning: #b56035;
-    --color-warning-highlight: #503d30; --color-error: #c95d9f; --color-error-highlight: #463040;
-    --shadow-sm: 0 1px 3px oklch(0 0 0 / 0.22); --shadow-md: 0 4px 16px oklch(0 0 0 / 0.32);
-    --shadow-lg: 0 16px 40px oklch(0 0 0 / 0.4);
-  }
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth; scroll-padding-top: var(--space-16); }
-body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); line-height: 1.6; }
-img { display: block; max-width: 100%; }
-button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
-a, button, input, textarea, select { transition: color var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition), opacity var(--transition); }
-:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
-h1,h2,h3,h4 { text-wrap: balance; line-height: 1.2; }
-p, li { text-wrap: pretty; }
-::selection { background: oklch(from var(--color-primary) l c h / 0.2); }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
-
-/* ── SKIP LINK ── */
-.skip-link { position: absolute; top: -100px; left: var(--space-4); background: var(--color-primary); color: #fff; padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); z-index: 999; }
-.skip-link:focus { top: var(--space-4); }
-
-/* ── NAV ── */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: oklch(from var(--color-surface) l c h / 0.92);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-divider);
-  padding: var(--space-3) var(--space-6);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav-logo { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; color: var(--color-text); }
-.nav-logo-mark { width: 34px; height: 34px; flex-shrink: 0; }
-.nav-logo-text { font-family: var(--font-display); font-size: var(--text-lg); line-height: 1; }
-.nav-logo-text span { color: var(--color-primary); font-style: italic; }
-.nav-right { display: flex; align-items: center; gap: var(--space-2); }
-.nav-badge { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px var(--space-2); border-radius: var(--radius-full); background: var(--color-primary-highlight); color: var(--color-primary); }
-.btn-icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md); color: var(--color-text-muted); }
-.btn-icon:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.btn-icon svg { width: 18px; height: 18px; }
-
-/* ── HERO ── */
-.hero {
-  padding: clamp(var(--space-12), 8vw, var(--space-20)) var(--space-6) clamp(var(--space-8), 5vw, var(--space-12));
-  max-width: var(--content-default); margin: 0 auto;
-}
-.hero-eyebrow { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-5); }
-.hero-eyebrow-line { width: 24px; height: 1px; background: var(--color-primary); }
-.hero-eyebrow-text { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); }
-.hero h1 { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 400; color: var(--color-text); margin-bottom: var(--space-4); max-width: 18ch; }
-.hero h1 em { color: var(--color-primary); font-style: italic; }
-.hero-desc { font-size: var(--text-base); color: var(--color-text-muted); max-width: 55ch; line-height: 1.7; margin-bottom: var(--space-8); }
-.hero-stats { display: flex; gap: var(--space-8); flex-wrap: wrap; }
-.stat-item { display: flex; flex-direction: column; gap: var(--space-1); }
-.stat-num { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-primary); line-height: 1; }
-.stat-label { font-size: var(--text-xs); color: var(--color-text-muted); max-width: 14ch; line-height: 1.4; }
-
-/* ── MAIN CONTENT ── */
-.content { max-width: var(--content-default); margin: 0 auto; padding: 0 var(--space-6) var(--space-20); }
-.section-divider { height: 1px; background: var(--color-divider); margin: var(--space-8) 0; }
-
-/* ── FORM CARD ── */
-.form-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-md);
-  overflow: hidden;
-}
-.form-card-header {
-  padding: var(--space-6) var(--space-8);
-  border-bottom: 1px solid var(--color-divider);
-  display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4);
-  background: var(--color-surface-2);
-}
-.form-card-title { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-text); font-weight: 400; }
-.form-card-title em { color: var(--color-primary); font-style: italic; }
-.form-card-desc { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-1); max-width: 52ch; line-height: 1.6; }
-.step-pills { display: flex; gap: var(--space-2); flex-shrink: 0; }
-.step-pill { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; background: var(--color-surface-offset); color: var(--color-text-muted); border: 1px solid var(--color-border); }
-.step-pill.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
-.step-pill.done { background: var(--color-success-highlight); color: var(--color-success); border-color: transparent; }
-.step-pill-num { width: 18px; height: 18px; border-radius: var(--radius-full); background: oklch(from currentColor l c h / 0.2); display: flex; align-items: center; justify-content: center; font-size: 10px; }
-
-.form-body { padding: var(--space-8); }
-.form-section { display: none; }
-.form-section.active { display: grid; gap: var(--space-6); animation: fadeIn 0.2s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-.form-group { display: flex; flex-direction: column; gap: var(--space-2); }
-label { font-size: var(--text-sm); font-weight: 500; color: var(--color-text); display: flex; align-items: center; gap: var(--space-1); }
-.req { color: var(--color-error); }
-.hint { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.5; }
-
-input[type="text"], textarea, select {
-  width: 100%; padding: var(--space-3) var(--space-4);
-  background: var(--color-bg); border: 1px solid var(--color-border);
-  border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--color-text);
-  font-family: var(--font-body); resize: vertical; line-height: 1.5;
-}
-input[type="text"]:focus, textarea:focus, select:focus {
-  outline: none; border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.12);
-}
-input::placeholder, textarea::placeholder { color: var(--color-text-faint); }
-select {
-  appearance: none; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6a65' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right var(--space-3) center; padding-right: var(--space-10);
-}
-
-.checkbox-group { display: flex; flex-direction: column; gap: var(--space-2); }
-.checkbox-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; }
-.checkbox-item:hover { background: var(--color-surface-offset); border-color: var(--color-primary); }
-.checkbox-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; flex-shrink: 0; }
-.checkbox-item label { font-size: var(--text-sm); color: var(--color-text); cursor: pointer; margin: 0; font-weight: 400; }
-.checkbox-item .check-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
-
-.form-nav { display: flex; justify-content: space-between; align-items: center; padding-top: var(--space-6); border-top: 1px solid var(--color-divider); margin-top: var(--space-2); }
-
-/* ── BUTTONS ── */
-.btn-primary {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: var(--space-3) var(--space-6); background: var(--color-primary);
-  color: #fff; border-radius: var(--radius-md); font-size: var(--text-sm);
-  font-weight: 600; font-family: var(--font-body); min-height: 44px;
-}
-.btn-primary:hover { background: var(--color-primary-hover); }
-.btn-primary:active { background: var(--color-primary-active); }
-.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
-.btn-primary svg { width: 16px; height: 16px; }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: var(--space-3) var(--space-5); background: transparent;
-  color: var(--color-text-muted); border: 1px solid var(--color-border);
-  border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: 500;
-  font-family: var(--font-body); min-height: 44px;
-}
-.btn-secondary:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.btn-secondary svg { width: 16px; height: 16px; }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: var(--space-2) var(--space-3); color: var(--color-text-muted);
-  font-size: var(--text-sm); border-radius: var(--radius-md); min-height: 36px;
-}
-.btn-ghost:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.btn-ghost svg { width: 14px; height: 14px; }
-
-/* ── LOADING STATE ── */
-.generating-state { display: none; padding: var(--space-12) var(--space-8); text-align: center; flex-direction: column; align-items: center; gap: var(--space-4); }
-.generating-state.visible { display: flex; }
-.spinner { width: 40px; height: 40px; border: 3px solid var(--color-primary-highlight); border-top-color: var(--color-primary); border-radius: var(--radius-full); animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.generating-label { font-size: var(--text-base); color: var(--color-text-muted); }
-.generating-steps { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2); }
-.gen-step { font-size: var(--text-sm); color: var(--color-text-faint); transition: color 0.3s; display: flex; align-items: center; gap: var(--space-2); justify-content: center; }
-.gen-step.active { color: var(--color-primary); }
-.gen-step.done { color: var(--color-success); }
-.gen-step svg { width: 14px; height: 14px; }
-
-/* ── ERROR STATE ── */
-.error-banner { display: none; align-items: flex-start; gap: var(--space-3); padding: var(--space-4) var(--space-5); background: var(--color-error-highlight); border: 1px solid oklch(from var(--color-error) l c h / 0.25); border-radius: var(--radius-lg); margin-bottom: var(--space-6); }
-.error-banner.visible { display: flex; }
-.error-banner svg { width: 18px; height: 18px; color: var(--color-error); flex-shrink: 0; margin-top: 2px; }
-.error-banner p { font-size: var(--text-sm); color: var(--color-text); line-height: 1.6; }
-
-/* ── OUTPUT SECTION ── */
-.output-section { display: none; margin-top: var(--space-10); }
-.output-section.visible { display: block; animation: fadeIn 0.3s ease; }
-.output-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-3); }
-.output-header-left h2 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 400; color: var(--color-text); }
-.output-header-left p { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-1); }
-.output-actions { display: flex; gap: var(--space-2); }
-
-.output-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
-.output-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden; display: flex; flex-direction: column;
-}
-.output-card.full { grid-column: 1 / -1; }
-.output-card-head {
-  padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--color-divider);
-  display: flex; align-items: center; gap: var(--space-3);
-  background: var(--color-surface-2);
-}
-.output-icon { width: 30px; height: 30px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.output-icon svg { width: 15px; height: 15px; }
-.output-icon.teal { background: var(--color-primary-highlight); color: var(--color-primary); }
-.output-icon.green { background: var(--color-success-highlight); color: var(--color-success); }
-.output-icon.amber { background: var(--color-warning-highlight); color: var(--color-warning); }
-.output-icon.rose { background: var(--color-error-highlight); color: var(--color-error); }
-.output-card-meta { flex: 1; min-width: 0; }
-.output-card-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
-.output-card-sub { font-size: var(--text-xs); color: var(--color-text-muted); }
-.copy-btn { display: flex; align-items: center; gap: var(--space-1); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: var(--text-xs); color: var(--color-text-muted); border: 1px solid var(--color-border); }
-.copy-btn:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.copy-btn svg { width: 12px; height: 12px; }
-
-.output-card-body { padding: var(--space-5); flex: 1; overflow-y: auto; max-height: 360px; }
-.output-content { font-size: var(--text-sm); color: var(--color-text); line-height: 1.75; }
-.output-content h3 { font-size: var(--text-sm); font-weight: 700; color: var(--color-primary); margin-top: var(--space-4); margin-bottom: var(--space-2); letter-spacing: 0.02em; }
-.output-content h3:first-child { margin-top: 0; }
-.output-content p { color: var(--color-text-muted); margin-bottom: var(--space-2); }
-.output-content ul, .output-content ol { padding-left: var(--space-5); display: flex; flex-direction: column; gap: var(--space-1); color: var(--color-text-muted); }
-.output-content strong { color: var(--color-text); font-weight: 600; }
-.output-content hr { border: none; border-top: 1px solid var(--color-divider); margin: var(--space-4) 0; }
-
-/* Skeleton loader */
-@keyframes shimmer { 0%{background-position:-600px 0} 100%{background-position:600px 0} }
-.skel { background: linear-gradient(90deg, var(--color-surface-offset) 25%, var(--color-surface-dynamic) 50%, var(--color-surface-offset) 75%); background-size: 600px 100%; animation: shimmer 1.6s ease-in-out infinite; border-radius: var(--radius-sm); }
-.skel-line { height: 0.9em; margin-bottom: var(--space-2); }
-.skel-line.w-80 { width: 80%; }
-.skel-line.w-60 { width: 60%; }
-.skel-line.w-40 { width: 40%; }
-.skel-head { height: 1.1em; width: 35%; margin-bottom: var(--space-3); margin-top: var(--space-4); }
-.skel-head:first-child { margin-top: 0; }
-
-/* ── INFO STRIP ── */
-.info-strip { background: var(--color-primary-highlight); border: 1px solid oklch(from var(--color-primary) l c h / 0.18); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); display: flex; gap: var(--space-3); align-items: flex-start; margin-bottom: var(--space-8); }
-.info-strip svg { width: 16px; height: 16px; color: var(--color-primary); flex-shrink: 0; margin-top: 3px; }
-.info-strip p { font-size: var(--text-sm); color: var(--color-primary-hover); line-height: 1.65; }
-.info-strip strong { font-weight: 600; }
-
-/* ── HOW IT WORKS ── */
-.how-section { padding: clamp(var(--space-12), 6vw, var(--space-16)) 0; }
-.section-label-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-8); }
-.section-label-row .line { flex: 1; height: 1px; background: var(--color-divider); }
-.section-label { font-size: var(--text-xs); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-faint); }
-.how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
-.how-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); box-shadow: var(--shadow-sm); }
-.how-num { font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-primary); opacity: 0.5; line-height: 1; margin-bottom: var(--space-3); }
-.how-title { font-size: var(--text-base); font-weight: 600; color: var(--color-text); margin-bottom: var(--space-2); }
-.how-desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.7; }
-
-/* ── FOOTER ── */
-footer { border-top: 1px solid var(--color-divider); padding: var(--space-8) var(--space-6); max-width: var(--content-default); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4); }
-.footer-left { font-size: var(--text-xs); color: var(--color-text-faint); line-height: 1.6; }
-.footer-left strong { color: var(--color-text-muted); }
-.footer-right { display: flex; gap: var(--space-4); }
-.footer-link { font-size: var(--text-xs); color: var(--color-text-faint); text-decoration: none; }
-.footer-link:hover { color: var(--color-text-muted); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 700px) {
-  nav { padding: var(--space-3) var(--space-4); }
-  .hero { padding: var(--space-10) var(--space-4) var(--space-8); }
-  .content { padding: 0 var(--space-4) var(--space-16); }
-  .form-card-header { padding: var(--space-5) var(--space-5); flex-direction: column; }
-  .step-pills { display: none; }
-  .form-body { padding: var(--space-5); }
-  .form-row-2 { grid-template-columns: 1fr; }
-  .how-grid { grid-template-columns: 1fr; }
-  .output-grid { grid-template-columns: 1fr; }
-  .output-card.full { grid-column: 1; }
-  .hero-stats { gap: var(--space-6); }
-  footer { flex-direction: column; align-items: flex-start; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PMM Launch Pad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #fbfaf7;
+      --surface-2: #f2efea;
+      --text: #2a2926;
+      --muted: #6f6c66;
+      --border: #d8d4cd;
+      --accent: #2e7b83;
+      --accent-dark: #1f6168;
+      --accent-soft: #dcebed;
+      --success: #2d6a4f;
+      --shadow: 0 14px 30px rgba(31, 39, 35, 0.08);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .shell {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .eyebrow {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .ghost-btn, .primary-btn, .copy-btn {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: white;
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .ghost-btn:hover, .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .hero-copy {
+      padding: 24px 8px 0 0;
+    }
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(48px, 8vw, 82px);
+      line-height: .95;
+      margin: 14px 0 20px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+    }
+    h1 em {
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .lede {
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 760px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+      margin-top: 34px;
+      max-width: 760px;
+    }
+    .stat strong {
+      display: block;
+      color: var(--accent);
+      font-family: 'Instrument Serif', serif;
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .stat span {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+    .form-panel {
+      padding: 24px;
+      position: sticky;
+      top: 20px;
+    }
+    .panel-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .subtle {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+    .form-grid { display: grid; gap: 16px; }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 15px;
+      background: white;
+      font: inherit;
+      color: var(--text);
+    }
+    textarea { min-height: 138px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(46,123,131,.12);
+    }
+    .outputs-fixed {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 14px;
+      padding: 8px;
+      display: grid;
+      gap: 8px;
+    }
+    .output-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: 12px;
+      background: #fcfcfa;
+      border: 1px solid #ece8e1;
+    }
+    .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      flex: 0 0 22px;
+      font-size: 13px;
+      margin-top: 1px;
+      font-weight: 700;
+    }
+    .output-item strong { display: block; font-size: 15px; margin-bottom: 2px; }
+    .output-item span { color: var(--muted); font-size: 14px; }
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .primary-btn {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      min-width: 220px;
+    }
+    .primary-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+    .primary-btn.generated {
+      background: var(--success);
+      border-color: var(--success);
+    }
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .results-panel {
+      padding: 24px;
+      min-height: 680px;
+    }
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .loading {
+      display: none;
+      padding: 18px;
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      background: #fff;
+      margin-bottom: 18px;
+    }
+    .loading.active { display: block; }
+    .loading-steps { display: grid; gap: 10px; margin-top: 12px; }
+    .step {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--border); transition: .2s ease;
+    }
+    .step.active .dot { background: var(--accent); box-shadow: 0 0 0 5px rgba(46,123,131,.12); }
+    .cards {
+      display: grid;
+      gap: 16px;
+    }
+    .card {
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .card.show { display: block; }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .card-head h3 { margin: 0; font-size: 18px; }
+    .card-body {
+      color: #413f3a;
+      white-space: pre-wrap;
+      font-size: 15px;
+    }
+    .empty-state {
+      border: 1px dashed var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      background: #fff;
+      color: var(--muted);
+    }
+    .mini-note { font-size: 13px; color: var(--muted); }
+    @media (max-width: 980px) {
+      .hero, .workspace { grid-template-columns: 1fr; }
+      .form-panel { position: static; }
+      .stats { grid-template-columns: 1fr; }
+      .results-header, .topbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-
-<a href="#main-form" class="skip-link">Skip to main content</a>
-
-<!-- NAV -->
-<nav aria-label="Main navigation">
-  <a href="#" class="nav-logo" aria-label="Launch Message Pack home">
-    <svg class="nav-logo-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
-      <rect width="34" height="34" rx="9" fill="var(--color-primary)"/>
-      <rect x="8" y="10" width="12" height="2.5" rx="1.25" fill="white" opacity="0.85"/>
-      <rect x="8" y="15.5" width="18" height="2.5" rx="1.25" fill="white"/>
-      <rect x="8" y="21" width="14" height="2.5" rx="1.25" fill="white" opacity="0.65"/>
-      <circle cx="25" cy="10.5" r="3" fill="white" opacity="0.2"/>
-      <circle cx="25" cy="10.5" r="1.75" fill="white"/>
-    </svg>
-    <span class="nav-logo-text">Launch <em>Message Pack</em></span>
-  </a>
-  <div class="nav-right">
-    <span class="nav-badge">Beta</span>
-    <button class="btn-icon" id="theme-toggle" aria-label="Toggle dark mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-    </button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero" aria-labelledby="hero-heading">
-  <div class="hero-eyebrow"><span class="hero-eyebrow-line" aria-hidden="true"></span><span class="hero-eyebrow-text">PMM Productivity Workflow</span></div>
-  <h1 id="hero-heading">From brief to messaging pack — <em>in one run.</em></h1>
-  <p class="hero-desc">Fill in three inputs. Hit Generate. Get a complete, structured messaging pack — positioning, talk tracks, sales snippets, objection handling, and launch-readiness gaps — ready to hand off in minutes, not hours.</p>
-  <div class="hero-stats" aria-label="Key statistics">
-    <div class="stat-item"><span class="stat-num">91%</span><span class="stat-label">of PMMs own positioning & messaging</span></div>
-    <div class="stat-item"><span class="stat-num">44%</span><span class="stat-label">of PMM teams are 1–2 people</span></div>
-    <div class="stat-item"><span class="stat-num">5×</span><span class="stat-label">outputs from a single structured run</span></div>
-  </div>
-</section>
-
-<!-- MAIN CONTENT -->
-<main id="main-form" class="content">
-
-  <div class="info-strip" role="note">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-    <p><strong>How this works:</strong> This tool calls Claude AI in the background using your feature brief as the source of truth. Claude is instructed only to use what's in the brief — it will flag gaps rather than invent information. Outputs are structured and labeled for immediate team use.</p>
-  </div>
-
-  <!-- FORM CARD -->
-  <div class="form-card" role="region" aria-label="Messaging pack builder">
-    <div class="form-card-header">
-      <div>
-        <h2 class="form-card-title">Build Your <em>Messaging Pack</em></h2>
-        <p class="form-card-desc">Three inputs. One run. Five structured outputs your team can use immediately.</p>
-      </div>
-      <div class="step-pills" role="list" aria-label="Form steps">
-        <div class="step-pill active" id="pill-1" role="listitem"><span class="step-pill-num">1</span> Brief</div>
-        <div class="step-pill" id="pill-2" role="listitem"><span class="step-pill-num">2</span> Audience</div>
-        <div class="step-pill" id="pill-3" role="listitem"><span class="step-pill-num">3</span> Generate</div>
-      </div>
+  <div class="shell">
+    <div class="topbar">
+      <div class="eyebrow">PMM Productivity Workflow</div>
+      <button id="resetTop" class="ghost-btn">Clear Screen to Regenerate</button>
     </div>
 
-    <div class="form-body">
-      <div id="error-banner" class="error-banner" role="alert" aria-live="polite">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-        <p id="error-text">Something went wrong. Please try again.</p>
-      </div>
-
-      <!-- STEP 1 -->
-      <div id="step-1" class="form-section active" aria-label="Step 1: Feature brief">
-        <div class="form-group">
-          <label for="f-name">Feature name <span class="req" aria-label="required">*</span></label>
-          <input type="text" id="f-name" name="feature" placeholder="e.g., Penny — AI Fundraising Strategist" autocomplete="off" required>
-        </div>
-        <div class="form-group">
-          <label for="f-brief">Feature brief <span class="req" aria-label="required">*</span></label>
-          <textarea id="f-brief" name="brief" rows="8" placeholder="Paste your product brief here. Include: what it is, who it's for, the problem it solves, how it works, key differentiators, proof points, and any known constraints or gaps." required></textarea>
-          <span class="hint">The more complete the brief, the stronger the outputs. Include at least one proof point or customer example if available.</span>
-        </div>
-        <div class="form-group">
-          <label for="f-stage">Launch stage <span class="req" aria-label="required">*</span></label>
-          <select id="f-stage" name="stage" required>
-            <option value="">— Select launch stage —</option>
-            <option value="Early access / beta">Early access / beta</option>
-            <option value="General availability (GA)">General availability (GA)</option>
-            <option value="Feature awareness campaign">Feature awareness campaign</option>
-            <option value="Post-launch optimization">Post-launch optimization</option>
-            <option value="Sales enablement refresh">Sales enablement refresh</option>
-          </select>
-        </div>
-        <div class="form-nav">
-          <span></span>
-          <button class="btn-primary" onclick="goStep(2)" type="button">
-            Next: Set Audience
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">PMM Productivity Workflow</div>
+        <h1>From brief to messaging pack — <em>in one run.</em></h1>
+        <p class="lede">Fill in three inputs. Hit Generate. Get a complete, structured messaging pack — positioning, talk tracks, sales snippets, objection handling, and launch-readiness gaps — ready to hand off in minutes, not hours.</p>
+        <div class="stats">
+          <div class="stat"><strong>91%</strong><span>of PMMs own positioning &amp; messaging</span></div>
+          <div class="stat"><strong>44%</strong><span>of PMM teams are 1–2 people</span></div>
+          <div class="stat"><strong>5x</strong><span>PMM Launch Pad generates five key documents in one run: messaging, persona talk tracks, sales enablement snippets, and launch readiness gaps making launch processes faster, repeatable, and higher quality.</span></div>
         </div>
       </div>
-
-      <!-- STEP 2 -->
-      <div id="step-2" class="form-section" aria-label="Step 2: Audience and goals">
-        <div class="form-row-2">
-          <div class="form-group">
-            <label for="f-primary">Primary persona <span class="req" aria-label="required">*</span></label>
-            <select id="f-primary" name="primaryPersona" required>
+      <div class="panel form-panel">
+        <div class="panel-title">Launch brief</div>
+        <div class="subtle">Three inputs. One run. Five structured outputs your team can use immediately.</div>
+        <form id="launchForm" class="form-grid">
+          <div class="field">
+            <label for="featureName">Feature name *</label>
+            <input id="featureName" name="featureName" placeholder="e.g., Smart Acknowledgment Receipts" required />
+          </div>
+          <div class="field">
+            <label for="brief">Feature brief *</label>
+            <textarea id="brief" name="brief" placeholder="What the feature does, who it serves, and what changed." required></textarea>
+          </div>
+          <div class="field">
+            <label for="launchStage">Launch stage *</label>
+            <select id="launchStage" name="launchStage" required>
+              <option value="">— Select launch stage —</option>
+              <option>Early access – limited beta / pilot cohort</option>
+              <option>GA – general availability / broad release</option>
+              <option>Post-launch optimization – feature is live; you’re refining messaging and enablement based on real usage</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="persona">Persona *</label>
+            <select id="persona" name="persona" required>
               <option value="">— Select persona —</option>
-              <option>Development Director</option>
-              <option>Executive Director</option>
-              <option>Fundraising Coordinator / New Staff</option>
-              <option>Major Gifts Officer</option>
-              <option>Board Member</option>
-              <option>Sales Rep (internal)</option>
-              <option>Demand Gen / Marketing</option>
+              <option>Director of Development at a mid-size nonprofit</option>
+              <option>Executive Director at a small to mid-size nonprofit</option>
+              <option>Fundraising Manager or Coordinator on a lean team</option>
+              <option>Major Gifts Officer focused on high-value donors</option>
+              <option>Board member or Development Committee chair</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="f-secondary">Secondary persona</label>
-            <select id="f-secondary" name="secondaryPersona">
-              <option value="">— Optional —</option>
-              <option>Development Director</option>
-              <option>Executive Director</option>
-              <option>Fundraising Coordinator / New Staff</option>
-              <option>Major Gifts Officer</option>
-              <option>Sales Rep (internal)</option>
-              <option>Demand Gen / Marketing</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="f-goal">Primary goal <span class="req" aria-label="required">*</span></label>
-          <select id="f-goal" name="goal" required>
-            <option value="">— Select goal —</option>
-            <option>Create clear, differentiated messaging for internal teams</option>
-            <option>Improve consistency of messaging across Sales and Demand Gen</option>
-            <option>Identify launch-readiness gaps before broader rollout</option>
-            <option>Build a first-pass enablement pack for Sales training</option>
-            <option>Accelerate the handoff from product brief to launch assets</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Requested outputs</label>
-          <div class="checkbox-group" role="group" aria-label="Select output types">
-            <div class="checkbox-item">
-              <input type="checkbox" id="out-1" value="Messaging Foundation" checked>
-              <div><label for="out-1">Messaging Foundation</label><div class="check-desc">Positioning, value prop, pillars, differentiators</div></div>
-            </div>
-            <div class="checkbox-item">
-              <input type="checkbox" id="out-2" value="Persona Talk Tracks" checked>
-              <div><label for="out-2">Persona Talk Tracks</label><div class="check-desc">Audience-specific narratives and discovery questions</div></div>
-            </div>
-            <div class="checkbox-item">
-              <input type="checkbox" id="out-3" value="Sales Enablement Snippets" checked>
-              <div><label for="out-3">Sales Enablement Snippets</label><div class="check-desc">One-pager text ready for enablement tools</div></div>
-            </div>
-            <div class="checkbox-item">
-              <input type="checkbox" id="out-4" value="FAQ / Objection Handling" checked>
-              <div><label for="out-4">FAQ / Objection Handling</label><div class="check-desc">Top objections with sourced responses</div></div>
-            </div>
-            <div class="checkbox-item">
-              <input type="checkbox" id="out-5" value="Launch-Readiness Gaps" checked>
-              <div><label for="out-5">Launch-Readiness Gaps</label><div class="check-desc">What's confirmed, what's missing, open questions</div></div>
+          <div class="field">
+            <label>Requested outputs</label>
+            <div class="outputs-fixed">
+              <div class="output-item"><div class="check">✓</div><div><strong>Messaging Foundation</strong><span>Positioning, value prop, pillars, differentiators</span></div></div>
+              <div class="output-item"><div class="check">✓</div><div><strong>Persona Talk Tracks</strong><span>Audience-specific narratives and discovery questions</span></div></div>
+              <div class="output-item"><div class="check">✓</div><div><strong>Sales Enablement Snippets</strong><span>One-pager text ready for enablement tools</span></div></div>
+              <div class="output-item"><div class="check">✓</div><div><strong>FAQ / Objection Handling</strong><span>Top objections with sourced responses</span></div></div>
+              <div class="output-item"><div class="check">✓</div><div><strong>Launch-Readiness Gaps</strong><span>What’s confirmed, what’s missing, open questions</span></div></div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="f-constraints">Constraints or notes</label>
-          <input type="text" id="f-constraints" name="constraints" placeholder="e.g., Avoid claiming specific performance metrics, pricing not confirmed">
-          <span class="hint">Optional. Anything Claude should not invent or claim.</span>
-        </div>
-        <div class="form-nav">
-          <button class="btn-secondary" onclick="goStep(1)" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
-          </button>
-          <button class="btn-primary" id="generate-btn" onclick="generate()" type="button">
-            Generate Message Pack
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </button>
-        </div>
-      </div>
-
-    </div><!-- /form-body -->
-
-    <!-- GENERATING STATE -->
-    <div id="generating-state" class="generating-state" aria-live="polite" aria-label="Generating messaging pack">
-      <div class="spinner" aria-hidden="true"></div>
-      <p class="generating-label">Generating your messaging pack…</p>
-      <div class="generating-steps" aria-hidden="true">
-        <div class="gen-step" id="gstep-1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-          Reading feature brief
-        </div>
-        <div class="gen-step" id="gstep-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-          Structuring messaging foundation
-        </div>
-        <div class="gen-step" id="gstep-3">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-          Building persona talk tracks
-        </div>
-        <div class="gen-step" id="gstep-4">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-          Writing enablement snippets & FAQs
-        </div>
-        <div class="gen-step" id="gstep-5">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-          Identifying launch-readiness gaps
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /form-card -->
-
-  <!-- OUTPUT SECTION -->
-  <section id="output-section" class="output-section" aria-label="Generated messaging pack" aria-live="polite">
-    <div class="output-header">
-      <div class="output-header-left">
-        <h2>Your Messaging Pack</h2>
-        <p id="output-meta">Generated from your feature brief</p>
-      </div>
-      <div class="output-actions">
-        <button class="btn-ghost" onclick="copyAll()" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy All
-        </button>
-        <button class="btn-secondary" onclick="resetForm()" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-          New Run
-        </button>
-      </div>
-    </div>
-
-    <div class="output-grid">
-
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-icon teal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <div class="field">
+            <label for="notes">Constraints or notes</label>
+            <textarea id="notes" name="notes" placeholder="Optional context, known risks, dependencies, adoption concerns, proof points, or launch notes."></textarea>
           </div>
-          <div class="output-card-meta">
-            <div class="output-card-title">Messaging Foundation</div>
-            <div class="output-card-sub">Positioning · Value Prop · Pillars</div>
+          <div class="action-row">
+            <button type="submit" id="generateBtn" class="primary-btn">Generate Message Pack</button>
+            <button type="button" id="copyAllBtn" class="ghost-btn">Copy All</button>
           </div>
-          <button class="copy-btn" onclick="copySection('out-messaging')" type="button" aria-label="Copy messaging foundation">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
+          <div class="mini-note">This version uses the Claude API via a secure Vercel serverless function.</div>
+        </form>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel results-panel" style="grid-column: 1 / -1;">
+        <div class="results-header">
+          <div>
+            <div class="panel-title">Generated message pack</div>
+            <div class="subtle" style="margin: 0;">Structured outputs appear below after generation.</div>
+          </div>
+          <button id="resetBottom" class="ghost-btn">Clear Screen to Regenerate</button>
         </div>
-        <div class="output-card-body"><div id="out-messaging" class="output-content"></div></div>
-      </div>
 
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-icon green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div id="loading" class="loading">
+          <strong>Generating your message pack…</strong>
+          <div class="loading-steps">
+            <div class="step active"><div class="dot"></div><span>Reading feature brief and launch context</span></div>
+            <div class="step"><div class="dot"></div><span>Drafting messaging and persona narrative</span></div>
+            <div class="step"><div class="dot"></div><span>Building enablement, FAQs, and launch gaps</span></div>
           </div>
-          <div class="output-card-meta">
-            <div class="output-card-title">Persona Talk Tracks</div>
-            <div class="output-card-sub">Narratives · Discovery questions</div>
-          </div>
-          <button class="copy-btn" onclick="copySection('out-personas')" type="button" aria-label="Copy persona talk tracks">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
         </div>
-        <div class="output-card-body"><div id="out-personas" class="output-content"></div></div>
-      </div>
 
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-icon amber">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          </div>
-          <div class="output-card-meta">
-            <div class="output-card-title">Sales Enablement Snippets</div>
-            <div class="output-card-sub">When to use · What not to promise</div>
-          </div>
-          <button class="copy-btn" onclick="copySection('out-sales')" type="button" aria-label="Copy sales enablement snippets">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
+        <div id="emptyState" class="empty-state">
+          <strong>Ready when you are.</strong>
+          <p style="margin:10px 0 0;">Add the feature name, brief, launch stage, and persona, then generate the full five-part PMM pack.</p>
         </div>
-        <div class="output-card-body"><div id="out-sales" class="output-content"></div></div>
-      </div>
 
-      <div class="output-card">
-        <div class="output-card-head">
-          <div class="output-icon teal">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div class="output-card-meta">
-            <div class="output-card-title">FAQ / Objection Handling</div>
-            <div class="output-card-sub">Top objections · AI trust concerns</div>
-          </div>
-          <button class="copy-btn" onclick="copySection('out-faq')" type="button" aria-label="Copy FAQ and objection handling">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
+        <div id="cards" class="cards">
+          <article class="card" data-key="messaging_foundation">
+            <div class="card-head"><h3>Messaging Foundation</h3><button class="copy-btn" data-copy="messaging_foundation">Copy</button></div>
+            <div class="card-body" id="messaging_foundation"></div>
+          </article>
+          <article class="card" data-key="persona_talk_tracks">
+            <div class="card-head"><h3>Persona Talk Tracks</h3><button class="copy-btn" data-copy="persona_talk_tracks">Copy</button></div>
+            <div class="card-body" id="persona_talk_tracks"></div>
+          </article>
+          <article class="card" data-key="sales_enablement_snippets">
+            <div class="card-head"><h3>Sales Enablement Snippets</h3><button class="copy-btn" data-copy="sales_enablement_snippets">Copy</button></div>
+            <div class="card-body" id="sales_enablement_snippets"></div>
+          </article>
+          <article class="card" data-key="faq_objection_handling">
+            <div class="card-head"><h3>FAQ / Objection Handling</h3><button class="copy-btn" data-copy="faq_objection_handling">Copy</button></div>
+            <div class="card-body" id="faq_objection_handling"></div>
+          </article>
+          <article class="card" data-key="launch_readiness_gaps">
+            <div class="card-head"><h3>Launch-Readiness Gaps</h3><button class="copy-btn" data-copy="launch_readiness_gaps">Copy</button></div>
+            <div class="card-body" id="launch_readiness_gaps"></div>
+          </article>
         </div>
-        <div class="output-card-body"><div id="out-faq" class="output-content"></div></div>
       </div>
-
-      <div class="output-card full">
-        <div class="output-card-head">
-          <div class="output-icon rose">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          </div>
-          <div class="output-card-meta">
-            <div class="output-card-title">Launch-Readiness Gaps</div>
-            <div class="output-card-sub">Confirmed · Open · Flagged — what needs PMM resolution before launch</div>
-          </div>
-          <button class="copy-btn" onclick="copySection('out-gaps')" type="button" aria-label="Copy launch-readiness gaps">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy
-          </button>
-        </div>
-        <div class="output-card-body"><div id="out-gaps" class="output-content"></div></div>
-      </div>
-
-    </div><!-- /output-grid -->
-  </section>
-
-  <div class="section-divider"></div>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-section" aria-labelledby="how-heading">
-    <div class="section-label-row" aria-hidden="true"><span class="line"></span><span class="section-label">How it works</span><span class="line"></span></div>
-    <div class="how-grid">
-      <div class="how-card">
-        <div class="how-num" aria-hidden="true">01</div>
-        <div class="how-title">Sourced research first</div>
-        <p class="how-desc">Before this tool is used, a PMM builds a sourced product brief using Perplexity Deep Research — drawing from public product pages, Help Center docs, webinars, and customer stories. That brief becomes the source of truth.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-num" aria-hidden="true">02</div>
-        <div class="how-title">Structured inputs, not a chat prompt</div>
-        <p class="how-desc">This form captures feature, persona, launch stage, and goals as structured inputs. The result is a consistent, repeatable prompt — not a one-off chat — so every run produces the same output shape.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-num" aria-hidden="true">03</div>
-        <div class="how-title">Claude as the execution layer</div>
-        <p class="how-desc">Claude generates five standard outputs in one run. It's instructed to stay within the brief, label what's confirmed vs. interpreted, and flag missing information rather than invent it.</p>
-      </div>
-      <div class="how-card">
-        <div class="how-num" aria-hidden="true">04</div>
-        <div class="how-title">PMM reviews, refines, distributes</div>
-        <p class="how-desc">The output is a structured first pass — not a finished asset. PMM judgment, stakeholder alignment, and brand voice refinement are still essential. This tool compresses the setup work, not the thinking.</p>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    Built by <strong>Cheryl Gipson</strong> · Sr. PMM Exercise · May 2026<br>
-    Stats source: PMA State of Product Marketing Report 2025
+    </section>
   </div>
-  <div class="footer-right">
-    <a href="https://www.productmarketingalliance.com/state-of-product-marketing-report-2025/" target="_blank" rel="noopener noreferrer" class="footer-link">PMA 2025 Report</a>
-    <a href="https://bloomerang.com/ai/penny/" target="_blank" rel="noopener noreferrer" class="footer-link">Penny by Bloomerang</a>
-    <a href="https://www.anthropic.com/news/projects" target="_blank" rel="noopener noreferrer" class="footer-link">Claude Projects</a>
-  </div>
-</footer>
 
-<script>
-// ── State ──
-let currentStep = 1;
-let allOutput = '';
+  <script>
+    const form = document.getElementById('launchForm');
+    const generateBtn = document.getElementById('generateBtn');
+    const loading = document.getElementById('loading');
+    const emptyState = document.getElementById('emptyState');
+    const steps = Array.from(document.querySelectorAll('.step'));
+    const cards = Array.from(document.querySelectorAll('.card'));
 
-// ── Dark mode ──
-(function(){
-  const r = document.documentElement;
-  const t = document.getElementById('theme-toggle');
-  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
-  r.setAttribute('data-theme', d);
-  function updateIcon() {
-    t.innerHTML = d === 'dark'
-      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
-      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-  }
-  updateIcon();
-  t.addEventListener('click', () => { d = d === 'dark' ? 'light' : 'dark'; r.setAttribute('data-theme', d); updateIcon(); });
-})();
+    const ids = [
+      'messaging_foundation',
+      'persona_talk_tracks',
+      'sales_enablement_snippets',
+      'faq_objection_handling',
+      'launch_readiness_gaps'
+    ];
 
-// ── Step navigation ──
-function goStep(n) {
-  if (n === 2) {
-    const name = document.getElementById('f-name').value.trim();
-    const brief = document.getElementById('f-brief').value.trim();
-    const stage = document.getElementById('f-stage').value;
-    if (!name || !brief || !stage) {
-      showError('Please fill in Feature Name, Feature Brief, and Launch Stage before continuing.');
-      return;
+    let generated = false;
+    let stepInterval;
+
+    function setLoading(active) {
+      loading.classList.toggle('active', active);
+      if (!active) {
+        clearInterval(stepInterval);
+        steps.forEach((s, i) => s.classList.toggle('active', i === 0));
+        return;
+      }
+      let idx = 0;
+      steps.forEach((s, i) => s.classList.toggle('active', i === 0));
+      stepInterval = setInterval(() => {
+        idx = (idx + 1) % steps.length;
+        steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+      }, 900);
     }
-  }
-  hideError();
-  document.getElementById('step-' + currentStep).classList.remove('active');
-  document.getElementById('step-' + n).classList.add('active');
-  [1,2,3].forEach(i => {
-    const pill = document.getElementById('pill-' + i);
-    pill.classList.remove('active','done');
-    if (i < n) pill.classList.add('done');
-    if (i === n) pill.classList.add('active');
-    if (i < n) pill.querySelector('.step-pill-num').innerHTML = '✓';
-    else pill.querySelector('.step-pill-num').textContent = i;
-  });
-  currentStep = n;
-}
 
-// ── Error handling ──
-function showError(msg) {
-  const b = document.getElementById('error-banner');
-  document.getElementById('error-text').textContent = msg;
-  b.classList.add('visible');
-}
-function hideError() {
-  document.getElementById('error-banner').classList.remove('visible');
-}
-
-// ── Generate ──
-async function generate() {
-  const primary = document.getElementById('f-primary').value;
-  const goal = document.getElementById('f-goal').value;
-  if (!primary || !goal) {
-    showError('Please select a Primary Persona and Primary Goal.');
-    return;
-  }
-  hideError();
-
-  const outputs = Array.from(document.querySelectorAll('.checkbox-group input:checked')).map(c => c.value);
-  if (outputs.length === 0) {
-    showError('Please select at least one output type.');
-    return;
-  }
-
-  const payload = {
-    feature: document.getElementById('f-name').value.trim(),
-    brief: document.getElementById('f-brief').value.trim(),
-    stage: document.getElementById('f-stage').value,
-    primaryPersona: primary,
-    secondaryPersona: document.getElementById('f-secondary').value,
-    goal: goal,
-    outputs: outputs,
-    constraints: document.getElementById('f-constraints').value.trim()
-  };
-
-  // Show generating state
-  document.getElementById('step-2').classList.remove('active');
-  document.getElementById('generating-state').classList.add('visible');
-
-  // Animate steps
-  const stepIds = ['gstep-1','gstep-2','gstep-3','gstep-4','gstep-5'];
-  const checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
-  const circleSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>';
-  stepIds.forEach(id => {
-    document.getElementById(id).classList.remove('active','done');
-    document.getElementById(id).querySelector('svg').outerHTML;
-    document.getElementById(id).innerHTML = circleSvg + document.getElementById(id).textContent.trim();
-  });
-  let stepIdx = 0;
-  function activateNextStep() {
-    if (stepIdx > 0) {
-      const prev = document.getElementById(stepIds[stepIdx - 1]);
-      prev.classList.remove('active'); prev.classList.add('done');
-      prev.querySelector('svg').outerHTML;
-      prev.innerHTML = checkSvg + prev.textContent.trim();
+    function resetUI() {
+      form.reset();
+      ids.forEach(id => document.getElementById(id).textContent = '');
+      cards.forEach(card => card.classList.remove('show'));
+      emptyState.style.display = 'block';
+      generateBtn.textContent = 'Generate Message Pack';
+      generateBtn.classList.remove('generated');
+      setLoading(false);
+      generated = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    if (stepIdx < stepIds.length) {
-      document.getElementById(stepIds[stepIdx]).classList.add('active');
-      stepIdx++;
-    }
-  }
-  activateNextStep();
-  const stepTimer = setInterval(activateNextStep, 1800);
 
-  try {
-    const res = await fetch('/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    async function copyText(text) {
+      if (!text) return;
+      await navigator.clipboard.writeText(text);
+    }
+
+    document.getElementById('copyAllBtn').addEventListener('click', async () => {
+      const text = ids.map(id => {
+        const card = document.querySelector(`[data-key="${id}"] h3`).textContent;
+        const body = document.getElementById(id).textContent.trim();
+        return body ? `${card}\n\n${body}` : '';
+      }).filter(Boolean).join('\n\n---\n\n');
+      if (!text) return;
+      await copyText(text);
+      const btn = document.getElementById('copyAllBtn');
+      const old = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(() => btn.textContent = old, 1200);
     });
-    clearInterval(stepTimer);
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error || 'API error');
-    }
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.getAttribute('data-copy');
+        await copyText(document.getElementById(id).textContent.trim());
+        const old = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = old, 1200);
+      });
+    });
 
-    const data = await res.json();
-    const text = data.result;
-    allOutput = text;
+    ['resetTop', 'resetBottom'].forEach(id => document.getElementById(id).addEventListener('click', resetUI));
 
-    // Parse and render
-    renderOutputs(text, payload);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Generating…';
+      setLoading(true);
+      emptyState.style.display = 'none';
+      cards.forEach(card => card.classList.remove('show'));
 
-    document.getElementById('generating-state').classList.remove('visible');
-    document.getElementById('step-2').classList.add('active');
-    document.getElementById('output-section').classList.add('visible');
-    document.getElementById('output-meta').textContent = `Generated for ${payload.primaryPersona} · ${payload.stage || 'Launch'}`;
-    document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      try {
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error || 'Generation failed');
 
-  } catch(err) {
-    clearInterval(stepTimer);
-    document.getElementById('generating-state').classList.remove('visible');
-    document.getElementById('step-2').classList.add('active');
-    showError('Error: ' + (err.message || 'Could not connect to the AI. Please check your setup and try again.'));
-  }
-}
+        ids.forEach(id => {
+          document.getElementById(id).textContent = json[id] || '';
+          document.querySelector(`.card[data-key="${id}"]`).classList.add('show');
+        });
 
-// ── Parse markdown-ish output into HTML ──
-function parseOutput(text) {
-  return text
-    .replace(/^## (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^\*\*(.+?)\*\*(.*)$/gm, '<strong>$1</strong>$2')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/^[-•] (.+)$/gm, '<li>$1</li>')
-    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/^(?!<[hup])/gm, '')
-    .replace(/<p><\/p>/g, '');
-}
-
-function renderSection(id, text) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.innerHTML = parseOutput(text) || '<p style="color:var(--color-text-faint)">No content generated for this section.</p>';
-}
-
-function renderOutputs(text, payload) {
-  const sections = {
-    'Messaging Foundation': 'out-messaging',
-    'Persona Talk Tracks': 'out-personas',
-    'Sales Enablement Snippets': 'out-sales',
-    'FAQ': 'out-faq',
-    'Objection Handling': 'out-faq',
-    'FAQ / Objection Handling': 'out-faq',
-    'Launch-Readiness Gaps': 'out-gaps'
-  };
-
-  // Split by ## headers
-  const parts = text.split(/(?=^## )/gm);
-  parts.forEach(part => {
-    const headerMatch = part.match(/^## (.+)/m);
-    if (!headerMatch) return;
-    const header = headerMatch[1].trim();
-    const content = part.replace(/^## .+\n?/m, '').trim();
-    const targetId = Object.keys(sections).find(k => header.toLowerCase().includes(k.toLowerCase()));
-    if (targetId) renderSection(sections[targetId], content);
-  });
-
-  // Fallback: dump everything in first card if parsing didn't work
-  const hasContent = ['out-messaging','out-personas','out-sales','out-faq','out-gaps']
-    .some(id => document.getElementById(id).textContent.trim().length > 0);
-  if (!hasContent) {
-    document.getElementById('out-messaging').innerHTML = parseOutput(text);
-  }
-}
-
-// ── Copy helpers ──
-function copySection(id) {
-  const el = document.getElementById(id);
-  const text = el.innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = el.closest('.output-card').querySelector('.copy-btn');
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-    btn.style.color = 'var(--color-success)';
-    setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 2000);
-  });
-}
-
-function copyAll() {
-  if (!allOutput) return;
-  navigator.clipboard.writeText(allOutput).then(() => {
-    const btn = document.querySelector('[onclick="copyAll()"]');
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-    btn.style.color = 'var(--color-success)';
-    setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 2000);
-  });
-}
-
-// ── Reset ──
-function resetForm() {
-  document.getElementById('output-section').classList.remove('visible');
-  allOutput = '';
-  ['out-messaging','out-personas','out-sales','out-faq','out-gaps'].forEach(id => {
-    document.getElementById(id).innerHTML = '';
-  });
-  goStep(1);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ── Lucide icons ──
-window.addEventListener('load', () => { if (window.lucide) lucide.createIcons(); });
-</script>
+        generated = true;
+        generateBtn.textContent = 'Generated';
+        generateBtn.classList.add('generated');
+      } catch (err) {
+        emptyState.style.display = 'block';
+        emptyState.innerHTML = `<strong>Something went wrong.</strong><p style="margin:10px 0 0;">${err.message}</p>`;
+      } finally {
+        generateBtn.disabled = false;
+        if (!generated) generateBtn.textContent = 'Generate Message Pack';
+        setLoading(false);
+        document.querySelector('.results-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  </script>
 </body>
 </html>
